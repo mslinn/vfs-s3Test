@@ -2,8 +2,8 @@ import org.apache.commons.vfs2._
 import java.io.File
 
 object VTest extends App {
-  val fsManager = VFS.getManager
-  val dir = fsManager.resolveFile("s3://vfs-test")
+  val fsManager: FileSystemManager = VFS.getManager // fails here
+  val dir: FileObject = fsManager.resolveFile("s3://vfs-test")
   dir.createFolder()
 
   // Upload file to S3
