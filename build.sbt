@@ -25,7 +25,7 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "commons-vfs"              %  "commons-vfs" % "1.0" withSources(),
+  "commons-vfs"              %  "commons-vfs" % "1.0",
   "net.java.dev.jets3t"      %  "jets3t"      % "0.6.1" withSources(),
   "log4j"                    %  "log4j"       % "1.2.17" withSources(),
 //
