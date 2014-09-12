@@ -1,5 +1,5 @@
 import java.io.File
-import org.apache.commons.vfs._
+import org.apache.commons.vfs2._
 
 object VTest extends App {
   val fsManager: FileSystemManager = VFS.getManager // fails here

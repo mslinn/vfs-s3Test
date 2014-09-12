@@ -2,7 +2,7 @@
 
 organization := "com.micronautics"
 
-name := "VTest"
+name := "vfs-s3Test"
 
 version := "0.1.1-SNAPSHOT"
 
@@ -21,13 +21,13 @@ scalacOptions in (Compile, doc) <++= baseDirectory.map {
 javacOptions ++= Seq("-Xlint:deprecation", "-Xlint:unchecked", "-source", "1.7", "-target", "1.7", "-g:vars")
 
 resolvers ++= Seq(
-  "Typesafe Releases"   at "http://repo.typesafe.com/typesafe/releases"
+  "Typesafe Releases"   at "http://repo.typesafe.com/typesafe/releases",
+  bintray.Opts.resolver.mavenRepo("abashev")
 )
 
 libraryDependencies ++= Seq(
-  "commons-vfs"              %  "commons-vfs" % "1.0",
-  "net.java.dev.jets3t"      %  "jets3t"      % "0.6.1" withSources(),
-  "log4j"                    %  "log4j"       % "1.2.17" withSources(),
+  "com.intridea.io"    %  "vfs-s3"      % "2.0.0" withSources(),
+  "org.apache.commons" % "commons-vfs2" % "2.0"  withSources(),
 //
   "org.scalatest"      %% "scalatest"       % "2.2.0" % "test" withSources()
 )
@@ -45,3 +45,5 @@ logLevel in compile := Level.Warn
 cancelable := true
 
 sublimeTransitive := true
+
+seq(bintrayResolverSettings:_*)
