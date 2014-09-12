@@ -25,8 +25,9 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.apache.commons" %  "commons-vfs2"    % "2.0" withSources(),
-  "commons-logging"    %  "commons-logging" % "1.2" withSources(),
+  "commons-vfs"              %  "commons-vfs" % "1.0" withSources(),
+  "net.java.dev.jets3t"      %  "jets3t"      % "0.6.1" withSources(),
+  "log4j"                    %  "log4j"       % "1.2.17" withSources(),
 //
   "org.scalatest"      %% "scalatest"       % "2.2.0" % "test" withSources()
 )
