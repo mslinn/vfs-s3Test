@@ -1,6 +1,6 @@
 # Virtual File System Test #
 
-See [abashev/vfs-s3](https://github.com/abashev/vfs-s3), the [jets3t samples](https://jets3t.s3.amazonaws.com/toolkit/code-samples.html) and the [http://commons.apache.org/proper/commons-vfs/apidocs/index.html](commons-vfs Javadoc)
+See [abashev/vfs-s3](https://github.com/abashev/vfs-s3), the [jets3t samples](https://jets3t.s3.amazonaws.com/toolkit/code-samples.html) and the [commons-vfs Javadoc](http://commons.apache.org/proper/commons-vfs/apidocs/index.html).
 
 ## Setup ##
 You might want to install [AWS CLI](http://aws.amazon.com/cli/)
