@@ -2,7 +2,7 @@
 
 organization := "com.micronautics"
 
-name := "changeMe"
+name := "VTest"
 
 version := "0.1.1-SNAPSHOT"
 
@@ -25,8 +25,10 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-//  "org.scalatest"           %% "scalatest"     % "2.2.0" % "test" withSources(),
-"org.apache.commons" % "commons-vfs2" % "2.0"
+  "org.apache.commons" %  "commons-vfs2"    % "2.0" withSources(),
+  "commons-logging"    %  "commons-logging" % "1.2" withSources(),
+//
+  "org.scalatest"      %% "scalatest"       % "2.2.0" % "test" withSources()
 )
 
 logLevel := Level.Warn
