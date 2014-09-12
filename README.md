@@ -22,3 +22,7 @@ Let's call that bucket `mybucket`. You can run the demo like this:
     $ aws s3 mb mybucket # create bucket
     $ sbt "runMain VTest mybucket"
     $ aws s3 ls mybucket # verify that README.md was copied to mybucket
+
+Before rerunning the demo, type:
+
+    $ aws s3 rm s3://mybucket/README.md
