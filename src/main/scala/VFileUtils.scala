@@ -24,17 +24,19 @@ object VFileUtils {
 
     def toFile: File = new File(fileObject.getName.getPath)
 
+    /** Removes protocol and S3 bucket, if present */
     def toAbsoluteName: String = fileObject.getName.getPathDecoded
 
+    /** Removes protocol and S3 bucket, if present */
     def toAbsoluteFile: File = fileObject.toFile.getAbsoluteFile
 
-    /** Only works for LocalFile providers */
+    /** Removes protocol and S3 bucket, if present */
     def toCanonicalFile: File = {
       val canonicalDir: File = fileObject.toFile.getParentFile.getCanonicalFile
-      new File(canonicalDir + fileObject.getName.getBaseName).getCanonicalFile
+      new File(canonicalDir + File.separator + fileObject.getName.getBaseName).getCanonicalFile
     }
 
-    /** Only works for LocalFile providers */
+    /** Removes protocol and S3 bucket, if present */
     def toCanonicalName: String = toCanonicalFile.getCanonicalPath
   }
 
@@ -135,7 +137,7 @@ object VFileUtils {
 
       override def traverseDescendents(fileInfo: FileSelectInfo): Boolean = true
     }
-    srcDir.copyFrom(destDir, fileSelector)
+    destDir.copyFrom(srcDir, fileSelector)
   }
 
   /** Deletes a directory recursively.

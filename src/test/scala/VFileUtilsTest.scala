@@ -8,6 +8,15 @@ import VFileUtils.RichFileObject
 
 @RunWith(classOf[JUnitRunner])
 class VFileUtilsTest extends WordSpec {
+  def createTestFiles(dir: FileObject): FileObject = {
+    if (!dir.exists)
+      dir.createFolder()
+    val file = dir.resolveFile("testFile.txt")
+    if (!file.exists)
+      file.createFile()
+    file
+  }
+
   val bucket = "mslinntest"
 
   val fsManager: FileSystemManager = {
@@ -35,14 +44,11 @@ class VFileUtilsTest extends WordSpec {
       println("Did you provide AWS credentials?")
       sys.exit(-1)
   }
-  if (!dir.exists)
-    dir.createFolder()
-  val file = dir.resolveFile("testFile.txt")
-  if (!file.exists)
-    file.createFile()
+
+  val file = createTestFiles(dir)
 
   "RichFileObject" should {
-    "isFile or isDirectory" in {
+    "isFile and isDirectory" in {
       assert(dir.isDirectory)
       assert(file.isFile)
       assert(!file.isDirectory)
@@ -55,8 +61,28 @@ class VFileUtilsTest extends WordSpec {
       assert(files(0).getName.getBaseName=="testFile.txt")
     }
 
-    "toFiles" in {
+    "toAbsoluteName and toCanonicalName" in {
       assert(file.toAbsoluteName=="/testDir/testFile.txt")
+      assert(file.toCanonicalName=="/testDir/testFile.txt")
+    }
+
+    "copyDirectory" in {
+      val destDir = s3Utils.resolveFile(s"s3://$bucket/testDir2")
+      VFileUtils.copyDirectory(dir, destDir)
+      assert(destDir.isDirectory)
+      val files = destDir.listFiles
+      assert(files.length==1)
+      assert(files(0).toAbsoluteName=="/testDir2/testFile.txt")
+      VFileUtils.deleteDirectory(destDir)
+      assert(!destDir.exists)
+      val filesNFG = destDir.listFiles
+    }
+
+    "cleanDirectory" in {
+      VFileUtils.cleanDirectory(dir)
+      assert(dir.exists)
+      assert(dir.listFiles.length==0)
+      createTestFiles(dir)
     }
   }
 }
