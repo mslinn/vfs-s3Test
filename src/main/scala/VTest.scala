@@ -2,6 +2,10 @@ import java.io.File
 import org.apache.commons.vfs2._
 
 object VTest extends App {
+
+  import com.intridea.io.vfs.provider.s3.S3FileProvider
+  import org.apache.commons.vfs2.provider.local.DefaultLocalFileProvider
+
   val bucket: String = {
     if (args.length!=1) {
       println("Usage: VTest bucketName")
@@ -25,8 +29,11 @@ object VTest extends App {
     VFS.getManager
   }
 
+  val s3Utils    = new VFileUtils(new S3FileProvider, fsManager)
+  val localUtils = new VFileUtils(new DefaultLocalFileProvider, fsManager)
+
   val dir: FileObject = try {
-    fsManager.resolveFile("s3://vfs-test")
+    s3Utils.resolveFile("s3://vfs-test")
   } catch {
     case npe: NullPointerException =>
       println("Did you provide AWS credentials?")
