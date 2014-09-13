@@ -30,7 +30,8 @@ libraryDependencies ++= Seq(
   "org.apache.commons" % "commons-vfs2" % "2.0"  withSources(),
   "commons-io"         % "commons-io"   % "2.4" withSources(),
 //
-  "org.scalatest"      %% "scalatest"       % "2.2.0" % "test" withSources()
+  "junit"              %  "junit"       % "4.11"   % "test" withSources(),
+  "org.scalatest"      %% "scalatest"   % "2.2.0" % "test" withSources()
 )
 
 logLevel := Level.Warn
