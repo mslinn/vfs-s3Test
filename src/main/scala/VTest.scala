@@ -2,7 +2,7 @@ import java.io.File
 import org.apache.commons.vfs2._
 
 object VTest extends App {
-  val bucket = {
+  val bucket: String = {
     if (args.length!=1) {
       println("Usage: VTest bucketName")
       System.exit(-2)
@@ -10,7 +10,7 @@ object VTest extends App {
     args(0)
   }
 
-  val fsManager = {
+  val fsManager: FileSystemManager = {
     import java.io.FileInputStream
     import java.util.Properties
     import com.intridea.io.vfs.provider.s3.S3FileProvider
@@ -34,8 +34,8 @@ object VTest extends App {
   }
   dir.createFolder()
 
-  // Upload file to S3
   val dest: FileObject = fsManager.resolveFile(s"s3://$bucket/README.md")
   val src: FileObject = fsManager.resolveFile(new File("README.md").getAbsolutePath)
+  dest.delete() // copyFrom fails if the destination already exists, so try to delete it first
   dest.copyFrom(src, Selectors.SELECT_SELF)
 }

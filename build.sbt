@@ -28,6 +28,7 @@ resolvers ++= Seq(
 libraryDependencies ++= Seq(
   "com.intridea.io"    %  "vfs-s3"      % "2.0.0" withSources(),
   "org.apache.commons" % "commons-vfs2" % "2.0"  withSources(),
+  "commons-io"         % "commons-io"   % "2.4" withSources(),
 //
   "org.scalatest"      %% "scalatest"       % "2.2.0" % "test" withSources()
 )
