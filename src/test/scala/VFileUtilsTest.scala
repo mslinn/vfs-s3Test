@@ -48,6 +48,15 @@ class VFileUtilsTest extends WordSpec {
   val file = createTestFiles(dir)
 
   "RichFileObject" should {
+    "asfd" in {
+      println(s"aws s3 ls s3://$bucket/testDir")
+      val dir1 = VFS.getManager.resolveFile(s"s3://$bucket/testDir")
+      //val children1 = dir1.listO
+
+      val dir2 = VFS.getManager.resolveFile(s"s3://$bucket/testDir/")
+      //val children2 = dir2.getChildren
+    }
+
     "isFile and isDirectory" in {
       assert(dir.isDirectory)
       assert(file.isFile)
@@ -82,6 +91,30 @@ class VFileUtilsTest extends WordSpec {
       VFileUtils.cleanDirectory(dir)
       assert(dir.exists)
       assert(dir.listFiles.length==0)
+      createTestFiles(dir)
+    }
+
+    "deleteQuietly" in {
+      VFileUtils.deleteQuietly(dir)
+      assert(!dir.exists)
+      createTestFiles(dir)
+    }
+
+    "forceDelete" in {
+      assert(file.exists)
+      VFileUtils.forceDelete(file)
+      assert(!file.exists)
+      intercept[java.io.FileNotFoundException] {
+        VFileUtils.forceDelete(file)
+      }
+
+      assert(dir.exists)
+      VFileUtils.forceDelete(dir)
+      assert(!dir.exists)
+
+      intercept[java.io.IOException] {
+        VFileUtils.forceDelete(dir)
+      }
       createTestFiles(dir)
     }
   }

@@ -20,7 +20,17 @@ object VFileUtils {
 
     def isFile: Boolean = fileObject.getType==FileType.FILE
 
-    def listFiles: Array[FileObject] = if (isDirectory) fileObject.getChildren else Array.empty
+    def listFiles: Array[FileObject] =
+      if (isDirectory) {
+        val name = fileObject.getName.getBaseName
+        val sanitizedFileObject =
+          if (!"".equals(name) && !name.endsWith(File.separator))
+            fileObject.resolveFile("/")
+          else
+            fileObject
+        sanitizedFileObject.getChildren
+      } else
+        Array.empty
 
     def toFile: File = new File(fileObject.getName.getPath)
 
@@ -159,6 +169,7 @@ object VFileUtils {
   def deleteQuietly(fileObject: FileObject): Boolean = {
     if (fileObject == null)
       return false
+
     try {
       if (fileObject.isDirectory) {
         cleanDirectory(fileObject)
