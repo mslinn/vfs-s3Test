@@ -65,7 +65,7 @@ class VFileUtilsTest extends WordSpec {
     }
 
     "listFiles" in {
-      val files = dir.listFiles
+      val files = dir.listFiles // dir is s3://mslinntest/testDir
       assert(files.length==1)
       assert(files(0).getName.getBaseName=="testFile.txt")
     }
@@ -76,7 +76,7 @@ class VFileUtilsTest extends WordSpec {
     }
 
     "copyDirectory" in {
-      val destDir = s3Utils.resolveFile(s"s3://$bucket/testDir2")
+      val destDir = s3Utils.resolveFile(s"s3://$bucket/testDir2") // s3://mslinntest/testDir2
       VFileUtils.copyDirectory(dir, destDir)
       assert(destDir.isDirectory)
       val files = destDir.listFiles
@@ -87,12 +87,12 @@ class VFileUtilsTest extends WordSpec {
       val filesNFG = destDir.listFiles
     }
 
-    "cleanDirectory" in {
-      VFileUtils.cleanDirectory(dir)
-      assert(dir.exists)
-      assert(dir.listFiles.length==0)
-      createTestFiles(dir)
-    }
+//    "cleanDirectory" in {
+//      VFileUtils.cleanDirectory(dir)
+//      assert(dir.exists)
+//      assert(dir.listFiles.length==0)
+//      createTestFiles(dir)
+//    }
 
     "deleteQuietly" in {
       VFileUtils.deleteQuietly(dir)

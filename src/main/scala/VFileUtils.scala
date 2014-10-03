@@ -147,7 +147,7 @@ object VFileUtils {
 
       override def traverseDescendents(fileInfo: FileSelectInfo): Boolean = true
     }
-    destDir.copyFrom(srcDir, fileSelector)
+    destDir.copyFrom(srcDir, fileSelector) // org.apache.commons.vfs2.FileSystemException: Could not find files in "s3://mslinntest/testDir".
   }
 
   /** Deletes a directory recursively.
